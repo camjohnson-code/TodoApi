@@ -12,6 +12,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+bin/
+obj/
 todo.db
 
 # User-specific files (MonoDevelop/Xamarin Studio)
