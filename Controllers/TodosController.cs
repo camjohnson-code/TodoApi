@@ -1,12 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.DTOs;
 using TodoApi.Models;
 using TodoApi.Services;
+using System.Security.Claims;
 
 namespace TodoApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class TodosController : ControllerBase
 {
     private readonly TodoService _service;
@@ -19,7 +22,8 @@ public class TodosController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        return Ok(_service.GetAll(1));
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        return Ok(_service.GetAll(userId));
     }
 
     [HttpGet("{id}")]
@@ -34,7 +38,8 @@ public class TodosController : ControllerBase
     [HttpPost]
     public IActionResult CreateTodo([FromBody] CreateTodoRequest request)
     {
-        return Ok(_service.Create(request.Title, request.Description, 1));
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        return Ok(_service.Create(request.Title, request.Description, userId));
     }
 
     [HttpPatch("{id}")]
