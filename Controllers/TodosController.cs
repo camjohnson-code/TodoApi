@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using TodoApi.Services;
-using TodoApi.Models;
 using TodoApi.DTOs;
+using TodoApi.Models;
+using TodoApi.Services;
 
 namespace TodoApi.Controllers;
 
@@ -26,7 +26,8 @@ public class TodosController : ControllerBase
     public IActionResult GetTodo(int id)
     {
         TodoItem? todo = _service.GetById(id);
-        if (todo == null) return NotFound();
+        if (todo == null)
+            return NotFound();
         return Ok(todo);
     }
 
@@ -40,22 +41,26 @@ public class TodosController : ControllerBase
     public IActionResult UpdateTodo(int id, [FromBody] UpdateTodoRequest request)
     {
         TodoItem? result = _service.Update(id, request.Title, request.Description);
-        if (result == null) return NotFound();
+        if (result == null)
+            return NotFound();
         return Ok(result);
     }
 
     [HttpDelete("{id}")]
     public IActionResult DeleteTodo(int id)
     {
-        if (_service.Delete(id) == true) return NoContent();
-        else return NotFound();
+        if (_service.Delete(id) == true)
+            return NoContent();
+        else
+            return NotFound();
     }
 
     [HttpPatch("{id}/toggle")]
     public IActionResult ToggleCompletion(int id)
     {
         TodoItem? result = _service.ToggleCompletion(id);
-        if (result == null) return NotFound();
+        if (result == null)
+            return NotFound();
         return Ok(result);
     }
 }
