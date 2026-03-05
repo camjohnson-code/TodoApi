@@ -15,6 +15,7 @@
 bin/
 obj/
 todo.db
+appsettings.Development.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -485,3 +486,4 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+appsettings.Development.json
